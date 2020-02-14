@@ -1,0 +1,25 @@
+
+in.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <do_something>:
+   0:	55                   	push   %rbp                   ; Push the value held in memory at the stack base pointer (RBP) onto the stack. This effectively preserves the call stack from other function calls.
+   1:	48 89 e5             	mov    %rsp,%rbp              ; Define stack base pointer (RBP) equal to RSP.
+   4:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)        ; Write the value zero ($0x0) over four bytes (0x4) off (-) the stack (RBP). This is effectively the integer declaration.
+   b:	eb 04                	jmp    11 <do_something+0x11> ; Go to 0x11.
+   d:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)        ; Add the value one ($0x1) to the value held in memory four bytes (0x4) off (-) the stack (RBP), and store the result in that memory address.
+  11:	83 7d fc 09          	cmpl   $0x9,-0x4(%rbp)        ; Compare the value nine ($0x9) with the value held in memory four bytes (0x4) off (-) the stack (-RBP).
+  15:	7e f6                	jle    d <do_something+0xd>   ; If the previous instruction was true (information stored in the machine status word), go to 0xd.
+  17:	8b 45 fc             	mov    -0x4(%rbp),%eax        ; Copy the value held in memory four bytes (0x4) off (-) the stack (RBP) to the accumulator (EAX)
+  1a:	5d                   	pop    %rbp                   ; Pop the value previously pushed onto the stack into the memory at the stack base pointer (RBP).
+  1b:	c3                   	retq                          ; Pop an instruction address from the call stack, and go to it.
+
+000000000000001c <main>:
+  1c:	55                   	push   %rbp                   ; Same as <do_something>.
+  1d:	48 89 e5             	mov    %rsp,%rbp              ; Same as <do_something+0x1>.
+  20:	b8 00 00 00 00       	mov    $0x0,%eax              ; Write the value zero ($0x0) to the accumulator (EAX).
+  25:	e8 00 00 00 00       	callq  2a <main+0xe>	26: R_X86_64_PC32	do_something-0x4    ; Go to <do_something> (0x0), adding <main+0xe> (0x2a) to the call stack.
+  2a:	5d                   	pop    %rbp                   ; Same as <do_something+0x1a>.
+  2b:	c3                   	retq                          ; Same as <do_something+0x1b>.

@@ -1,0 +1,15 @@
+
+in.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <do_something>:
+   0:	31 c0                	xor    %eax,%eax              ; Set the value held in memory in the accumulator to zero.
+   2:	e9 00 00 00 00       	jmpq   7 <do_something+0x7>	3: R_X86_64_PC32	main-0x4        ; Go to <do_something+0x7>, which is <main> (!).
+
+Disassembly of section .text.startup:
+
+0000000000000000 <main>:
+   0:	b8 0a 00 00 00       	mov    $0xa,%eax              ; Write the value ten ($0xa) to the accumulator (EAX).
+   5:	c3                   	retq                          ; Pop an instruction address from the call stack, and go to it.
