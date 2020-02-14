@@ -14,10 +14,10 @@ following files:
    with comments.
 
  - dump_no_opt_linked: disassembly of the executable file built via `gcc Wall
-   -in.c`, without comments.
+   in.c`, without comments.
 
- - dump_opt_linked: disassembly of the executable file built via `gcc -Wall O3
-   -in.c`, without comments.
+ - dump_opt_linked: disassembly of the executable file built via `gcc -Wall -O3
+   in.c`, without comments.
 
 Dumps made with `objdump -drwC`. Binaries built for elf64-x86-64.
 
